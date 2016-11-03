@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tutorialApp')
-  .controller('LoginCtrl', function ($scope, $http, $cookies, tokenFetch, $location) {
+  .controller('LoginCtrl', function ($scope, $http, $cookies, tokenFetch, $location, apiService) {
 
     $scope.creds = {
       username: "",
@@ -18,20 +18,13 @@ angular.module('tutorialApp')
         $location.url('/projects');
       }
     }
+
     /* login function */
-    $scope.authLogin = function(creds){
-      var formdata = {
-        username: creds.username,
-        password: creds.password
-      }
-      $http.post('http://userservice.staging.tangentmicroservices.com:80/api-token-auth/',formdata).
-      success(function (data, status, headers, config) {
-        $scope.token = data.token;
-        $cookies.put('token', data.token);
-        $location.url('/projects');
-      }).error(function (error, status) {
-        // to toast error
-      });
+    $scope.authLogin = function(creds) {
+        var promise = apiService.login(creds.username, creds.password);
+        promise.then(function (data, status, headers, config) {
+            $location.url('/projects');
+        })
     }
     /* call to init function */
     $scope.init();

@@ -1,226 +1,226 @@
 <div class="row marketing">
-  <div class="row">
-    <div class="col-md-10">
-      <h3 style="color:#54dac1">Projects</h3>
-    </div>
-    <div class="col-md-2">
-      <a href="" ng-click="clickAdd()">
-        <i class="fa fa-plus-circle fa-2x" style="color:#54dac1" ></i>
-      </a>
-    </div>
-  </div>
-  <table class="table table-striped">
-    <thead>
-      <td>Title</td>
-      <td>Description</td>
-      <td>Start Date</td>
-      <td>End Date</td>
-      <td>Is Billable</td>
-      <td>Is Active</td>
-      <td>Created</td>
-      <td>Actions</td>
-    </thead>
-    <tbody>
-      <tr ng-repeat="p in projects">
-        <td>{{p.title}}</td>
-        <td>{{p.description}}</td>
-        <td>{{p.start_date | date: longDate}}</td>
-        <td>{{p.end_date | date: longDate}}</td>
-        <td>
-          <i class="fa fa-check-circle fa-lg" ng-class="{positive: p.is_billable, negative: !p.is_billable}"></i>
-        </td>
-        <td> <i class="fa fa-check-circle fa-lg" ng-class="{positive: p.is_active, negative: !p.is_active}"></i></td>
-        <td>{{p.start_date}}</td>
-        <td>
-          <a href="" ng-click="clickView(p)" ><i class="fa fa-search fa-lg" style="color:#54dac1" ></i></a>
-          <a href="" ng-click="clickEdit(p)" ><i class="fa fa-edit fa-lg" style="color:#54dac1"></i></a>
-          <a href="" ng-click="clickDelete(p)" ><i class="fa fa-trash fa-lg" style="color:#54dac1"></i></a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- The Add Modal -->
-  <div class="modal fade" id="ProjectAddModal" tabindex="-1" role="dialog" aria-labelledby="Stock" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content" >
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel" style="color: #54dac1">Create a new Project</h4>
+    <div class="row">
+        <div class="col-md-10">
+            <h3 style="color:#54dac1">Projects</h3>
         </div>
-        <div class="modal-body">
-          <form ng-submit="addProject(addData)" >
+        <div class="col-md-2">
+            <a href="" ng-click="clickAdd()">
+                <i class="fa fa-plus-circle fa-2x" style="color:#54dac1" ></i>
+            </a>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <td>Title</td>
+        <td>Description</td>
+        <td>Start Date</td>
+        <td>End Date</td>
+        <td>Is Billable</td>
+        <td>Is Active</td>
+        <td>Created</td>
+        <td>Actions</td>
+        </thead>
+        <tbody>
+        <tr ng-repeat="p in projects">
+            <td>{{p.title}}</td>
+            <td>{{p.description}}</td>
+            <td>{{p.start_date | date: longDate}}</td>
+            <td>{{p.end_date | date: longDate}}</td>
+            <td>
+                <i class="fa fa-check-circle fa-lg" ng-class="{positive: p.is_billable, negative: !p.is_billable}"></i>
+            </td>
+            <td> <i class="fa fa-check-circle fa-lg" ng-class="{positive: p.is_active, negative: !p.is_active}"></i></td>
+            <td>{{p.start_date}}</td>
+            <td>
+                <a href="" ng-click="clickView(p)" ><i class="fa fa-search fa-lg" style="color:#54dac1" ></i></a>
+                <a href="" ng-click="clickEdit(p)" ><i class="fa fa-edit fa-lg" style="color:#54dac1"></i></a>
+                <a href="" ng-click="clickDelete(p)" ><i class="fa fa-trash fa-lg" style="color:#54dac1"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-            <div class="form-group">
-              <label for="title">Title</label>
-              <input type="text" ng-model="addData.title" class="form-control" required name="title" placeholder="Project Title">
-            </div>
+    <!-- The Add Modal -->
+    <div class="modal fade" id="ProjectAddModal" tabindex="-1" role="dialog" aria-labelledby="Stock" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel" style="color: #54dac1">Create a new Project</h4>
+                </div>
+                <div class="modal-body">
+                    <form ng-submit="addProject(addData)" >
 
-            <div class="form-group">
-              <label for="description">Description</label>
-              <textarea type="text" ng-model="addData.description" class="form-control" required name="description" placeholder="Project Description">
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" ng-model="addData.title" class="form-control" required name="title" placeholder="Project Title">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea type="text" ng-model="addData.description" class="form-control" required name="description" placeholder="Project Description">
                 </textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="start_date">Start Date</label>
+                            <input type="date" ng-model="addData.start_date" class="form-control" required name="start_date" placeholder="Start Date">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="end_date">End Date</label>
+                            <input type="date" ng-model="addData.end_date" class="form-control"  name="end_date" placeholder="End Date">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="is_billable">Is Billable</label>
+                            <input type="checkbox" ng-model="addData.is_billable" class="form-control" name="is_billable" placeholder="Is Billable">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="is_active">Is Active</label>
+                            <input type="checkbox" ng-model="addData.is_active" class="form-control"  name="is_active" placeholder="Is Active">
+                        </div>
+
+                        <button class="btn btn-lg btn-primary btn-block" type="submit" >Add Project</button>
+                    </form>
+
+                </div>
             </div>
-
-            <div class="form-group">
-              <label for="start_date">Start Date</label>
-              <input type="date" ng-model="addData.start_date" class="form-control" required name="start_date" placeholder="Start Date">
-            </div>
-
-            <div class="form-group">
-              <label for="end_date">End Date</label>
-              <input type="date" ng-model="addData.end_date" class="form-control"  name="end_date" placeholder="End Date">
-            </div>
-
-            <div class="form-group">
-              <label for="is_billable">Is Billable</label>
-              <input type="checkbox" ng-model="addData.is_billable" class="form-control" name="is_billable" placeholder="Is Billable">
-            </div>
-
-            <div class="form-group">
-              <label for="is_active">Is Active</label>
-              <input type="checkbox" ng-model="addData.is_active" class="form-control"  name="is_active" placeholder="Is Active">
-            </div>
-
-            <button class="btn btn-lg btn-primary btn-block" type="submit" >Add Project</button>
-          </form>
-
         </div>
-      </div>
     </div>
-  </div>
 
-  <!-- The View Modal -->
-  <div class="modal fade" id="ProjectViewModal" tabindex="-1" role="dialog" aria-labelledby="Stock" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content" >
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="" style="color: #54dac1">{{selProject.title}}</h4>
+    <!-- The View Modal -->
+    <div class="modal fade" id="ProjectViewModal" tabindex="-1" role="dialog" aria-labelledby="Stock" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="" style="color: #54dac1">{{selProject.title}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="lead">{{selProject.description}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6" style="text-align: center">
+                            <h4 >Start Date: </h4><p class="lead"> {{selProject.start_date}}</p>
+                        </div>
+                        <div class="col-md-6" style="text-align: center">
+                            <h4 >End Date:</h4><p class="lead"> {{selProject.end_date}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h2></h2>
+                    </div>
+                    <div class="row" >
+
+                        <table class="table-striped" ng-if="selProject.task_set.length > 0" style="margin: 0 auto">
+                            <thead>
+                            <td style="font-weight: bold">Title</td>
+                            <td style="font-weight: bold">Due Date</td>
+                            <td style="font-weight: bold">Estimated Hours</td>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="task in selProject.task_set">
+                                <td style="padding: 5px">
+                                    <div class="form-group">
+                                        <input type="text" required ng-model="task.title" class="form-control"  name="task_title" placeholder="Task Title">
+                                    </div>
+
+                                </td>
+                                <td style="padding: 5px">
+                                    <div class="form-group">
+                                        <input type="date" ng-model="task.due_date" class="form-control" required name="due_date" placeholder="Due Date">
+                                    </div>
+                                </td>
+                                <td style="padding: 5px">
+                                    <div class="form-group">
+                                        <input type="text" ng-model="task.estimated_hours" class="form-control"  name="task_hours" placeholder="Estimated hours">
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <h5 style="margin: 0 auto; text-align: center" ng-if="selProject.task_set.length == 0">There are no tasks allocated for this Project</h5>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-md-12">
-              <p class="lead">{{selProject.description}}</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6" style="text-align: center">
-              <h4 >Start Date: </h4><p class="lead"> {{selProject.start_date}}</p>
-            </div>
-            <div class="col-md-6" style="text-align: center">
-              <h4 >End Date:</h4><p class="lead"> {{selProject.end_date}}</p>
-            </div>
-          </div>
-          <div class="row">
-            <h2></h2>
-          </div>
-          <div class="row" >
-
-              <table class="table-striped" ng-if="selProject.task_set.length > 0" style="margin: 0 auto">
-                <thead>
-                  <td style="font-weight: bold">Title</td>
-                  <td style="font-weight: bold">Due Date</td>
-                  <td style="font-weight: bold">Estimated Hours</td>
-                </thead>
-                <tbody>
-                  <tr ng-repeat="task in selProject.task_set">
-                    <td style="padding: 5px">
-                      <div class="form-group">
-                        <input type="text" required ng-model="task.title" class="form-control"  name="task_title" placeholder="Task Title">
-                      </div>
-
-                    </td>
-                    <td style="padding: 5px">
-                      <div class="form-group">
-                        <input type="date" ng-model="task.due_date" class="form-control" required name="due_date" placeholder="Due Date">
-                      </div>
-                    </td>
-                    <td style="padding: 5px">
-                      <div class="form-group">
-                        <input type="text" ng-model="task.estimated_hours" class="form-control"  name="task_hours" placeholder="Estimated hours">
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            <h5 style="margin: 0 auto; text-align: center" ng-if="selProject.task_set.length == 0">There are no tasks allocated for this Project</h5>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 
-  <!-- The Delete Modal -->
-  <div class="modal fade" id="ProjectDeleteModal" tabindex="-1" role="dialog" aria-labelledby="Stock" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content" >
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title"  style="color: #54dac1">{{selProject.title}}</h4>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-md-12" style="text-align: center">
-              <h2>Are you sure you would like to delete this project?</h2>
-              <p class="lead">This action cannot be undone</p>
-              <button class="btn btn-lg btn-primary btn-block" style="background-color: grey" class="close" data-dismiss="modal" >Cancel</button>
-              <button class="btn btn-lg btn-primary btn-block" ng-click="delProject()" type="submit" >Delete Project</button>
+    <!-- The Delete Modal -->
+    <div class="modal fade" id="ProjectDeleteModal" tabindex="-1" role="dialog" aria-labelledby="Stock" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"  style="color: #54dac1">{{selProject.title}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: center">
+                            <h2>Are you sure you would like to delete this project?</h2>
+                            <p class="lead">This action cannot be undone</p>
+                            <button class="btn btn-lg btn-primary btn-block" style="background-color: grey" class="close" data-dismiss="modal" >Cancel</button>
+                            <button class="btn btn-lg btn-primary btn-block" ng-click="delProject()" type="submit" >Delete Project</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <!-- The Edit Modal -->
-  <div class="modal fade" id="ProjectEditModal" tabindex="-1" role="dialog" aria-labelledby="Stock" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content" >
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" style="color: #54dac1">{{selProject.title}}</h4>
-        </div>
-        <div class="modal-body">
-          <form ng-submit="editProject(selProject)" >
+    <!-- The Edit Modal -->
+    <div class="modal fade" id="ProjectEditModal" tabindex="-1" role="dialog" aria-labelledby="Stock" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" style="color: #54dac1">{{selProject.title}}</h4>
+                </div>
+                <div class="modal-body">
+                    <form ng-submit="editProject(selProject)" >
 
-            <div class="form-group">
-              <label for="title">Title</label>
-              <input type="text" ng-model="selProject.title" class="form-control" required name="title" placeholder="Project Title">
-            </div>
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" ng-model="selProject.title" class="form-control" required name="title" placeholder="Project Title">
+                        </div>
 
-            <div class="form-group">
-              <label for="description">Description</label>
-              <textarea type="text" ng-model="selProject.description" class="form-control" required name="description" placeholder="Project Description">
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea type="text" ng-model="selProject.description" class="form-control" required name="description" placeholder="Project Description">
                 </textarea>
-            </div>
+                        </div>
 
-            <div class="form-group">
-              <label for="start_date">Start Date</label>
-              <input type="date" ng-model="selProject.start_date" class="form-control" required name="start_date" placeholder="Start Date">
-            </div>
+                        <div class="form-group">
+                            <label for="start_date">Start Date</label>
+                            <input type="date" ng-model="selProject.start_date" class="form-control" required name="start_date" placeholder="Start Date">
+                        </div>
 
-            <div class="form-group">
-              <label for="end_date">End Date</label>
-              <input type="date" ng-model="selProject.end_date" class="form-control"  name="end_date" placeholder="End Date">
-            </div>
+                        <div class="form-group">
+                            <label for="end_date">End Date</label>
+                            <input type="date" ng-model="selProject.end_date" class="form-control"  name="end_date" placeholder="End Date">
+                        </div>
 
-            <div class="form-group">
-              <label for="is_billable">Is Billable</label>
-              <input type="checkbox" ng-model="selProject.is_billable" class="form-control" name="is_billable" placeholder="Is Billable">
-            </div>
+                        <div class="form-group">
+                            <label for="is_billable">Is Billable</label>
+                            <input type="checkbox" ng-model="selProject.is_billable" class="form-control" name="is_billable" placeholder="Is Billable">
+                        </div>
 
-            <div class="form-group">
-              <label for="is_active">Is Active</label>
-              <input type="checkbox" ng-model="selProject.is_active" class="form-control"  name="is_active" placeholder="Is Active">
-            </div>
-            <button class="btn btn-lg btn-primary btn-block" style="background-color: grey" class="close" data-dismiss="modal" >Cancel</button>
-            <button class="btn btn-lg btn-primary btn-block" type="submit" >Update Project</button>
-          </form>
+                        <div class="form-group">
+                            <label for="is_active">Is Active</label>
+                            <input type="checkbox" ng-model="selProject.is_active" class="form-control"  name="is_active" placeholder="Is Active">
+                        </div>
+                        <button class="btn btn-lg btn-primary btn-block" style="background-color: grey" class="close" data-dismiss="modal" >Cancel</button>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit" >Update Project</button>
+                    </form>
 
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 
 </div>

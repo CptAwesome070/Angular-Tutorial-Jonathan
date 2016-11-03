@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tutorialApp')
-  .controller('ProjectsCtrl', function ($scope, $http, $cookies, $location, tokenFetch, $filter, $route, projectService) {
+  .controller('ProjectsCtrl', function ($scope, $http, $cookies, $location, tokenFetch, $filter, $route, projectAPI) {
 
     $scope.token;
     $scope.projects = [];
@@ -24,30 +24,30 @@ angular.module('tutorialApp')
        $scope.getProjects();
       }
     };
-
-
     $scope.getProjects = function(){
       $scope.token = tokenFetch.getToken();
       if($scope.token == undefined){
         $location.url('/login');
       }
-      else{
-        projectService.getAll().then(function(data){
-          angular.forEach(data.data, function(d){
-            if(d.task_set.length >0){
-              angular.forEach(d.task_set, function(ts){
-                if(ts.due_date != null){
-                  ts.due_date = new Date(ts.due_date);
-                }
-                else{
-                  ts.due_date = undefined;
-                }
+      else {
+          var promise = projectAPI.getProjects();
+          promise.then(function (data, status, headers, config) {
+              angular.forEach(data, function (d) {
+                  if (d.task_set.length > 0) {
+                      angular.forEach(d.task_set, function (ts) {
+                          if (ts.due_date != null) {
+                              ts.due_date = new Date(ts.due_date);
+                          }
+                          else {
+                              ts.due_date = undefined;
+                          }
+                      });
+                  }
               });
-            }
-          });
-          $scope.projects  = data.data;
-        });
+              $scope.projects = data;
+          })
       }
+      console.log($scope.projects);
     }
 
     /* add project function */
