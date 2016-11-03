@@ -3,9 +3,10 @@ node_js:
   - '0.10'
 env:
   global:
-  - CODECLIMATE_REPO_TOKEN=<token> codeclimate-test-reporter < coverage/**/lcov.info
+  - CODECLIMATE_REPO_TOKEN=8910f0eecec690fe46215ae226576036bb4187e25a23a3fe798498fdb7395171 codeclimate-test-reporter < coverage/lcov.info
 before_script:
   - npm install -g bower grunt-cli
   - bower install
 after_script:
   - codeclimate-test-reporter < coverage/**/lcov.info
+
