@@ -1,35 +1,37 @@
 'use strict';
 
-/**
- * @ngdoc overview
- * @name tutorialApp
- * @description
- * # tutorialApp
- *
- * Main module of the application.
- */
 angular
-  .module('tutorialApp', [
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch'
-  ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+    .module('tutorialApp', [
+        'ngAnimate',
+        'ngCookies',
+        'ngResource',
+        'ngRoute',
+        'ngSanitize',
+        'ngTouch'
+    ])
+
+    .config(function ($routeProvider) {
+        $routeProvider
+            .when('/', {
+                templateUrl: 'views/main.html',
+                controllerAs: 'main'
+            })
+            .when('/about', {
+                templateUrl: 'views/about.html',
+                controllerAs: 'about'
+            })
+            .when('/login', {
+                templateUrl: 'views/login.html',
+                controller: 'LoginCtrl',
+                controllerAs: 'login'
+            })
+            .when('/projects', {
+                templateUrl: 'views/projects.html',
+                controller: 'ProjectsCtrl',
+                controllerAs: 'projects'
+            })
+            .otherwise({
+                redirectTo: '/'
+            });
+    });
+
