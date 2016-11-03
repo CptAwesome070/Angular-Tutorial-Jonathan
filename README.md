@@ -1,12 +1,6 @@
-# tutorial
+Tutorial by Jonathan Greve
 
-This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
-version 0.15.1.
+[![Code Climate](https://codeclimate.com/github/CptAwesome070/Angular-Tutorial-Jonathan/badges/gpa.svg)](https://codeclimate.com/github/CptAwesome070/Angular-Tutorial-Jonathan)
 
-## Build & development
+"!https://codeclimate.com/github/CptAwesome070/Angular-Tutorial-Jonathan/badges/gpa.svg!":https://codeclimate.com/github/CptAwesome070/Angular-Tutorial-Jonathan
 
-Run `grunt` for building and `grunt serve` for preview.
-
-## Testing
-
-Running `grunt test` will run the unit tests with karma.
