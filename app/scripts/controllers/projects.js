@@ -3,7 +3,6 @@
 angular.module('tutorialApp')
   .controller('ProjectsCtrl', function ($scope, $http, $cookies, $location, tokenFetch, $filter, $route, projectAPI) {
 
-    $scope.token;
     $scope.projects = [];
     $scope.addData = {
       title: "",
@@ -15,27 +14,43 @@ angular.module('tutorialApp')
     };
     $scope.selProject = null;
 
+    /* redirect if no token */
+    $scope.tokenCheck = function(){
+        $scope.token = tokenFetch.getToken();
+        if($scope.token === undefined){
+            $location.url('/login');
+        }
+    }
+
+    /* Date check */
+    $scope.dateCleanupService = function(data){
+        data.start_date =$filter('date')(new Date(data.start_date), "yyyy-MM-dd");
+        data.end_date =$filter('date')(new Date(data.end_date), "yyyy-MM-dd");
+        if(data.end_date == "1970-01-01"){
+            data.end_date = null;
+        }
+        if(data.is_billable === null){
+            data.is_billable = false;
+        }
+        if(data.is_active === null){
+            data.is_active = false;
+        }
+        return data;
+    }
+
     /* initial scope loading function, checks if the token is still valid in the cookie, and not yet expired */
     $scope.init = function(){
-      $scope.token = tokenFetch.getToken();
-      if($scope.token == undefined){
-        $location.url('/login');
-      }else{
-       $scope.getProjects();
-      }
+        $scope.tokenCheck();
+        $scope.getProjects();
     };
     $scope.getProjects = function(){
-      $scope.token = tokenFetch.getToken();
-      if($scope.token == undefined){
-        $location.url('/login');
-      }
-      else {
-          var promise = projectAPI.getProjects();
+        $scope.tokenCheck();
+        var promise = projectAPI.getProjects();
           promise.then(function (data, status, headers, config) {
               angular.forEach(data, function (d) {
                   if (d.task_set.length > 0) {
                       angular.forEach(d.task_set, function (ts) {
-                          if (ts.due_date != null) {
+                          if (ts.due_date !== null) {
                               ts.due_date = new Date(ts.due_date);
                           }
                           else {
@@ -46,51 +61,30 @@ angular.module('tutorialApp')
               });
               $scope.projects = data;
           })
-      }
-      console.log($scope.projects);
     }
 
     /* add project function */
-
     $scope.clickAdd = function(){
       $('#ProjectAddModal').modal('show');
     }
 
     $scope.addProject = function(data){
-
-      data.start_date =$filter('date')(new Date(data.start_date), "yyyy-MM-dd");
-      data.end_date =$filter('date')(new Date(data.end_date), "yyyy-MM-dd");
-
-      if(data.end_date == "1970-01-01"){
-        data.end_date = null;
-      }
-
-      if(data.is_billable == null){
-        data.is_billable = false;
-      }
-      if(data.is_active == null){
-        data.is_active = false;
-      }
-      projectService.add(data).then(function(raw){
-        var newdata = raw.data;
-        if(newdata.due_date != null){
-          newdata.due_date = new Date(newdata.due_date);
-        }
-        else{
-          newdata.due_date = undefined;
-        }
-        $scope.projects.push(newdata);
-        $('#ProjectAddModal').modal('hide');
-      });
-    }
-
-    $scope.clickView = function(project){
-      $scope.selProject = project;
-      $('#ProjectViewModal').modal('show');
+        data = $scope.dateCleanupService(data);
+        var promise = projectAPI.add(data);
+        promise.then(function (data, status, headers, config) {
+            var newdata = data;
+            if(newdata.due_date !== null){
+              newdata.due_date = new Date(newdata.due_date);
+            }
+            else{
+              newdata.due_date = undefined;
+            }
+            $scope.projects.push(newdata);
+            $('#ProjectAddModal').modal('hide');
+        });
     }
 
     /* Project Delete */
-
     $scope.clickDelete = function(p){
       $scope.selProject = p;
       $('#ProjectDeleteModal').modal('show');
@@ -98,51 +92,36 @@ angular.module('tutorialApp')
 
     $scope.delProject= function(){
       var ind = $scope.projects.indexOf($scope.selProject);
-      projectService.delete($scope.selProject.pk).then(function(data){
-        $scope.projects.splice(ind, 1);
-        $scope.selProject = null;
-        $('#ProjectDeleteModal').modal('hide');
+        var promise = projectAPI.delete($scope.selProject.pk);
+        promise.then(function (data, status, headers, config) {
+            $scope.projects.splice(ind, 1);
+            $scope.selProject = null;
+            $('#ProjectDeleteModal').modal('hide');
       });
     }
 
-
     /* edit project function */
-
     $scope.clickEdit = function(p){
       p.start_date = new Date(p.start_date);
       p.end_date = new Date(p.end_date);
-
       $scope.selProject = p;
       $('#ProjectEditModal').modal('show');
     }
 
     $scope.editProject = function(data){
-      data.start_date =$filter('date')(new Date(data.start_date), "yyyy-MM-dd");
-      data.end_date =$filter('date')(new Date(data.end_date), "yyyy-MM-dd");
-      if(data.end_date == "1970-01-01"){
-        data.end_date = null;
-      }
-      if(data.is_billable == null){
-        data.is_billable = false;
-      }
-      if(data.is_active == null){
-        data.is_active = false;
-      }
-      var ind = $scope.projects.indexOf($scope.selProject);
-
-      projectService.edit(data,data.pk).then(function(data){
-          $scope.projects[ind] = data.data;
+        data = $scope.dateCleanupService(data);
+        var ind = $scope.projects.indexOf($scope.selProject);
+        var promise = projectAPI.edit(data,data.pk);
+        promise.then(function (data, status, headers, config) {
+          $scope.projects[ind] = data;
           $('#ProjectEditModal').modal('hide');
           $scope.selProject = null;
         });
     }
 
     /* View project */
-
     $scope.clickView = function(project){
-
       $scope.selProject = project;
-
       $('#ProjectViewModal').modal('show');
     }
 
