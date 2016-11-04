@@ -30,7 +30,7 @@
                 <i class="fa fa-check-circle fa-lg" ng-class="{positive: p.is_billable, negative: !p.is_billable}"></i>
             </td>
             <td> <i class="fa fa-check-circle fa-lg" ng-class="{positive: p.is_active, negative: !p.is_active}"></i></td>
-            <td>{{p.start_date}}</td>
+            <td>{{p.start_date | date: longDate}}</td>
             <td>
                 <a href="" ng-click="clickView(p)" ><i class="fa fa-search fa-lg" style="color:#54dac1" ></i></a>
                 <a href="" ng-click="clickEdit(p)" ><i class="fa fa-edit fa-lg" style="color:#54dac1"></i></a>

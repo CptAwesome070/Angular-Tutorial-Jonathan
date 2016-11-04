@@ -26,7 +26,6 @@ module.service('apiService', function($q, AUTH_SERVICE_BASE_URI, $http, $cookies
 })
 module.service('projectAPI', function($q, PROJECT_SERVICE_BASE_URI, $http, $cookies, loginService){
     this.getProjects = function () {
-
         var deferred = $q.defer(),
             url = PROJECT_SERVICE_BASE_URI + 'projects/';
 
@@ -39,14 +38,13 @@ module.service('projectAPI', function($q, PROJECT_SERVICE_BASE_URI, $http, $cook
             }).error(function (response, status, headers, config) {
             deferred.reject(response, status, headers, config);
         });
-
         return deferred.promise;
     }
 
     this.add= function(data){
         var deferred = $q.defer();
         url = PROJECT_SERVICE_BASE_URI + 'projects/';
-        $http.post(url, loginService.getAuthHeaders())
+        $http.post(url, data, loginService.getAuthHeaders())
             .success(function (response, status, headers, config) {
                 if (response) {
                     deferred.resolve(response);
@@ -55,12 +53,12 @@ module.service('projectAPI', function($q, PROJECT_SERVICE_BASE_URI, $http, $cook
             }).error(function (response, status, headers, config) {
             deferred.reject(response, status, headers, config);
         });
+        return deferred.promise;
     },
-
-        this.delete = function(pk){
+    this.delete = function(pk){
             var deferred = $q.defer();
             url = PROJECT_SERVICE_BASE_URI + 'projects/'+pk+'/';
-            $http.post(url, loginService.getAuthHeaders())
+            $http.delete(url, loginService.getAuthHeaders())
                 .success(function (response, status, headers, config) {
                     if (response) {
                         deferred.resolve(response);
@@ -69,6 +67,7 @@ module.service('projectAPI', function($q, PROJECT_SERVICE_BASE_URI, $http, $cook
                 }).error(function (response, status, headers, config) {
                     deferred.reject(response, status, headers, config);
                 })
+            return deferred.promise;
         },
         this.edit= function(data, pk){
             var deferred = $q.defer();
@@ -82,6 +81,7 @@ module.service('projectAPI', function($q, PROJECT_SERVICE_BASE_URI, $http, $cook
                 }).error(function (response, status, headers, config) {
                 deferred.reject(response, status, headers, config);
             })
+            return deferred.promise;
         }
 })
 
